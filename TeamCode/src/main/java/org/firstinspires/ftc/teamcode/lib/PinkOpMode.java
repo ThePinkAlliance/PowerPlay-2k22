@@ -1,9 +1,9 @@
-package org.firstinspires.ftc.pinkcode.lib;
+package org.firstinspires.ftc.teamcode.lib;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
-import org.firstinspires.ftc.pinkcode.subsystems.Hardware;
+import org.firstinspires.ftc.teamcode.subsystems.Hardware;
 
 public abstract class PinkOpMode extends OpMode implements OpType {
     protected Hardware hardware;

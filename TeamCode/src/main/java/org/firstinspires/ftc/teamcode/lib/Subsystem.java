@@ -1,6 +1,6 @@
-package org.firstinspires.ftc.pinkcode.lib;
+package org.firstinspires.ftc.teamcode.lib;
 
-import org.firstinspires.ftc.pinkcode.subsystems.Hardware;
+import org.firstinspires.ftc.teamcode.subsystems.Hardware;
 
 public abstract class Subsystem {
     protected Hardware hardware;

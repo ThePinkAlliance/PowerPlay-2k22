@@ -1,25 +1,25 @@
-package org.firstinspires.ftc.pinkcode.subsystems;
+package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.util.Range;
 
-import org.firstinspires.ftc.pinkcode.lib.Subsystem;
-import org.firstinspires.ftc.pinkcode.subsystems.roadrunner.RobotConfig;
+import org.firstinspires.ftc.teamcode.lib.Subsystem;
 
 public class Lift extends Subsystem {
     // Unit Inches
     private double currentElevatorHeight = 0;
+    private double TICKS_PER_REV = 0.0;
 
     private final double extensionMaxTicks = 100;
     private final double extensionMaxInches = 100;
-    private final double extensionInchesPerElevatorRotation = extensionMaxInches / (extensionMaxTicks / RobotConfig.TICKS_PER_REV);
+    private final double extensionInchesPerElevatorRotation = extensionMaxInches / (extensionMaxTicks / TICKS_PER_REV);
     private double currentExtensionDistance = 0;
 
     private final double clawHeightDifference = 0;
     private final double maxElevatorHeightTicks = 100;
     private final double maxElevatorHeightInches = 120;
-    private final double inchesPerElevatorRotation = maxElevatorHeightInches / (maxElevatorHeightTicks / RobotConfig.TICKS_PER_REV);
+    private final double inchesPerElevatorRotation = maxElevatorHeightInches / (maxElevatorHeightTicks / TICKS_PER_REV);
     private final double safeRotationHeightInches = 8;
 
     PIDFCoefficients pidCoefficients = new PIDFCoefficients();
@@ -40,7 +40,7 @@ public class Lift extends Subsystem {
      */
     public void setLiftHeight(double height) {
         double rotations = (height + clawHeightDifference) / inchesPerElevatorRotation;
-        double position = Range.clip(rotations * RobotConfig.TICKS_PER_REV, 0, maxElevatorHeightTicks);
+        double position = Range.clip(rotations * TICKS_PER_REV, 0, maxElevatorHeightTicks);
 
         this.hardware.liftMotor.setTargetPosition((int) position);
 
@@ -55,7 +55,7 @@ public class Lift extends Subsystem {
 
     public void setExtensionDistance(double distance) {
         double rotations = distance / inchesPerElevatorRotation;
-        int position = (int) Range.clip(rotations * RobotConfig.TICKS_PER_REV, 0, maxElevatorHeightTicks);
+        int position = (int) Range.clip(rotations * TICKS_PER_REV, 0, maxElevatorHeightTicks);
 
         this.hardware.extensionMotor.setTargetPosition(position);
         this.currentExtensionDistance = distance;

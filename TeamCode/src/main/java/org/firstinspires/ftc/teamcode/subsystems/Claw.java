@@ -1,9 +1,9 @@
-package org.firstinspires.ftc.pinkcode.subsystems;
+package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.pinkcode.lib.Subsystem;
+import org.firstinspires.ftc.teamcode.lib.Subsystem;
 
 public class Claw extends Subsystem {
     Servo claw;

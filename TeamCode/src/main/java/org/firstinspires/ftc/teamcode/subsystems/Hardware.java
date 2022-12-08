@@ -1,11 +1,10 @@
-package org.firstinspires.ftc.pinkcode.subsystems;
+package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
-import org.firstinspires.ftc.pinkcode.util.Encoder;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 
 /**
@@ -23,9 +22,9 @@ public class Hardware {
     public DcMotorEx turretMotor;
 
     // Odometry
-    public Encoder leftEncoder;
-    public Encoder rightEncoder;
-    public Encoder centerEncoder;
+//    public Encoder leftEncoder;
+//    public Encoder rightEncoder;
+//    public Encoder centerEncoder;
 
     public DcMotorEx testMotor;
 

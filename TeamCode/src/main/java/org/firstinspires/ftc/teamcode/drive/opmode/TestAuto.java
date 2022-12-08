@@ -106,9 +106,6 @@ public class TestAuto extends LinearOpMode {
                             selectedSequence = right;
                             break;
                     }
-
-                    telemetry.addData("rec name", recognitionName);
-                    telemetry.update();
                 }
             }
         }
