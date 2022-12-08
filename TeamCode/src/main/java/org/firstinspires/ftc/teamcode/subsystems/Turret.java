@@ -14,7 +14,7 @@ public class Turret extends Subsystem {
     private final float gearRatio = 27 / 3f;
     private final double degreesPerRotation = (360 / (1 / gearRatio));
 
-    public PIDFCoefficients pidfCoefficients = new PIDFCoefficients();
+
     public Lift lift;
 
     public Turret(Hardware hardware, Lift lift) {
@@ -22,7 +22,7 @@ public class Turret extends Subsystem {
 
         this.lift = lift;
 
-        this.hardware.turretMotor.setPIDFCoefficients(DcMotor.RunMode.RUN_TO_POSITION, pidfCoefficients);
+        this.hardware.turretMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER)
     }
 
     public CommandResponse setTurretAngle(double targetAngle) {
