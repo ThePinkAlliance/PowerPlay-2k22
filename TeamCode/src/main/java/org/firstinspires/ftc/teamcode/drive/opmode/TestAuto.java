@@ -30,24 +30,6 @@ public class TestAuto extends LinearOpMode {
             "2 Bulb",
             "3 Panel"
     };
-    private enum OBJECT_LABEL {
-        NONE(""),
-        BOLT("1 Bolt"),
-        BULB("2 Bulb"),
-        PANEL("3 Panel");
-
-        String name;
-
-        OBJECT_LABEL(String name) {
-            this.name = name;
-        }
-
-        @Override
-        public String toString() {
-            return name;
-        }
-    }
-
 
     /**
      * {@link #vuforia} is the variable we will use to store our instance of the Vuforia
@@ -113,18 +95,18 @@ public class TestAuto extends LinearOpMode {
                     telemetry.update();
                 }
 
-//                switch (foundTag) {
-//                    case BULB:
-//                        selectedSequence = center;
-//                        break;
-//                    case PANEL:
-//                        selectedSequence = left;
-//                        break;
-//
-//                    case BOLT:
-//                        selectedSequence = right;
-//                        break;
-//                }
+                switch (foundTag) {
+                    case BULB:
+                        selectedSequence = center;
+                        break;
+                    case PANEL:
+                        selectedSequence = left;
+                        break;
+
+                    case BOLT:
+                        selectedSequence = right;
+                        break;
+                }
             }
         }
 
@@ -134,7 +116,7 @@ public class TestAuto extends LinearOpMode {
             selectedSequence = center;
         }
 
-//        drive.followTrajectorySequence(selectedSequence);
+        drive.followTrajectorySequence(selectedSequence);
     }
 
     /**
