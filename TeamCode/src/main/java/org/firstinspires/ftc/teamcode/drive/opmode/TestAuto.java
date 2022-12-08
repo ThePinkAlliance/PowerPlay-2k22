@@ -25,10 +25,13 @@ public class TestAuto extends LinearOpMode {
     private static final String VUFORIA_KEY =
             "AU5HdoL/////AAABmdflEYY1uEgKvLLnXhuUKQEiOh/Swf8w1NP3fjwJ0L5KhNZjEBmtqvcb1vRriuL7dxpTimmKsrPxVN0GSemDm1z0zZHiuEDJjN6is0gE5cC8eCf5/w4A9J9xygAQMiK4UOje3lWQjKpyMbqNeKgy1I6PZqyXBae1+6/gecIRmHuDjcqGFcEnRKmf8e6iPrFIdaC53DkmQUxJWRalVEqWsdmwmLm69AsaoG+aL7D0xkupVo7U23C2fdDkl66qsFO7v7jf0ONGEdmNjg1TTEKQmrip86/iMst+I7mdLA/pYsY00EjAjgPJ8YdXEqR5pKR2CK4DNmVU+c2A7T+w+KhGwxJ8us9j9FpYTd1yC0wRQD0R";
 
+    private static final String bulb_label = "2 Bulb";
+    private static final String panel_label = "3 Panel";
+    private static final String bolt_label = "1 Bolt";
     private static final String[] LABELS = {
-            "1 Bolt",
-            "2 Bulb",
-            "3 Panel"
+            bolt_label,
+            bulb_label,
+            panel_label
     };
 
     /**
@@ -91,21 +94,21 @@ public class TestAuto extends LinearOpMode {
 
                     String recognitionName = updatedRecognitions.get(0).getLabel();
 
+                    switch (recognitionName) {
+                        case bolt_label:
+                            selectedSequence = center;
+                            break;
+                        case bulb_label:
+                            selectedSequence = left;
+                            break;
+
+                        case panel_label:
+                            selectedSequence = right;
+                            break;
+                    }
+
                     telemetry.addData("rec name", recognitionName);
                     telemetry.update();
-                }
-
-                switch (foundTag) {
-                    case BULB:
-                        selectedSequence = center;
-                        break;
-                    case PANEL:
-                        selectedSequence = left;
-                        break;
-
-                    case BOLT:
-                        selectedSequence = right;
-                        break;
                 }
             }
         }
