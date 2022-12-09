@@ -26,6 +26,7 @@ public class TeleOp extends PinkOpMode {
             this.hardware.turretMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             this.hardware.turretMotor.setTargetPosition((int) _targetPosition);
             this.hardware.turretMotor.setPower(0.5);
+//            this.hardware.turretMotor.setPower(Math.copySign(0.5, _targetPosition));
             currentAngle = targetAngle;
             while (this.hardware.turretMotor.isBusy())
                 telemetry.addData("Turret", "Moving");
