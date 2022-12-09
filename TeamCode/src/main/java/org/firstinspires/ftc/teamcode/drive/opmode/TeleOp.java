@@ -53,6 +53,7 @@ public class TeleOp extends PinkOpMode {
         }
         if (gamepad1.dpad_right) {
             setTurretAngle(currentAngle + 90);
+
         }
     }
 }
