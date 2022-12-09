@@ -14,8 +14,8 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 import java.util.List;
 
-@Autonomous(name = "Auto")
-public class TestAuto extends LinearOpMode {
+@Autonomous(name = "Auto Right")
+public class AutoRight extends LinearOpMode {
     Pose2d startingPose = new Pose2d(-69, -11.7);
 
     TrajectorySequence selectedSequence;
@@ -45,6 +45,7 @@ public class TestAuto extends LinearOpMode {
      */
     private TFObjectDetector tfod;
 
+    private double frwd = 34.5;
 
 
     @Override
@@ -53,9 +54,9 @@ public class TestAuto extends LinearOpMode {
 
         drive.setPoseEstimate(startingPose);
 
-        TrajectorySequence left = drive.trajectorySequenceBuilder(startingPose).forward(34.5).strafeLeft(34.5).build();
-        TrajectorySequence right = drive.trajectorySequenceBuilder(startingPose).forward(34.5).strafeRight(34.5).build();
-        TrajectorySequence center = drive.trajectorySequenceBuilder(startingPose).forward(34.5).build();
+        TrajectorySequence left = drive.trajectorySequenceBuilder(startingPose).forward(frwd).strafeLeft(24).build();
+        TrajectorySequence right = drive.trajectorySequenceBuilder(startingPose).forward(frwd).strafeRight(24).build();
+        TrajectorySequence center = drive.trajectorySequenceBuilder(startingPose).forward(frwd).build();
 
         initVuforia();
         initTfod();
