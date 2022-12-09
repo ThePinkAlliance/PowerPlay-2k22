@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.subsystems;
 
+import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.telemetry;
+
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 import com.qualcomm.robotcore.util.Range;
@@ -22,16 +24,11 @@ public class Lift extends Subsystem {
     private final double inchesPerElevatorRotation = maxElevatorHeightInches / (maxElevatorHeightTicks / TICKS_PER_REV);
     private final double safeRotationHeightInches = 8;
 
-    PIDFCoefficients pidCoefficients = new PIDFCoefficients();
-    PIDFCoefficients extensionPidCoefficients = new PIDFCoefficients();
-
     public Lift(Hardware hardware) {
         super(hardware);
 
-        this.hardware.liftMotor.setPIDFCoefficients(DcMotor.RunMode.RUN_TO_POSITION, pidCoefficients);
         this.hardware.liftMotor.setTargetPositionTolerance(2);
 
-        this.hardware.extensionMotor.setPIDFCoefficients(DcMotor.RunMode.RUN_TO_POSITION, extensionPidCoefficients);
         this.hardware.extensionMotor.setTargetPositionTolerance(2);
     }
 
@@ -46,6 +43,9 @@ public class Lift extends Subsystem {
 
         // limit the set target position speed to 40%
         this.hardware.liftMotor.setPower(0.4);
+        while (this.hardware.turretMotor.isBusy())
+            telemetry.addData("Lift", "Moving");
+        this.hardware.turretMotor.setPower(0);
         this.currentElevatorHeight = height + clawHeightDifference;
     }
 
@@ -56,6 +56,9 @@ public class Lift extends Subsystem {
     public void setExtensionDistance(double distance) {
         double rotations = distance / inchesPerElevatorRotation;
         int position = (int) Range.clip(rotations * TICKS_PER_REV, 0, maxElevatorHeightTicks);
+        while (this.hardware.extensionMotor.isBusy())
+            telemetry.addData("Turret", "Moving");
+        this.hardware.extensionMotor.setPower(0);
 
         this.hardware.extensionMotor.setTargetPosition(position);
         this.currentExtensionDistance = distance;

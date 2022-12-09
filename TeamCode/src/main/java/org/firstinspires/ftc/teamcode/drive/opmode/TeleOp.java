@@ -6,6 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import org.firstinspires.ftc.teamcode.lib.CommandResponse;
 import org.firstinspires.ftc.teamcode.lib.CommandStatus;
 import org.firstinspires.ftc.teamcode.lib.PinkOpMode;
+import org.firstinspires.ftc.teamcode.subsystems.Claw;
 import org.firstinspires.ftc.teamcode.subsystems.Lift;
 
 public class TeleOp extends PinkOpMode {
@@ -16,6 +17,7 @@ public class TeleOp extends PinkOpMode {
     private final double degreesPerRotation = (360 / (1 / gearRatio));
 
     private Lift lift;
+    private Claw claw;
 
     double currentAngle = 0;
 
@@ -37,6 +39,10 @@ public class TeleOp extends PinkOpMode {
         return new CommandResponse(this.hardware.turretMotor, CommandStatus.ACCEPTED);
     }
 
+
+
+
+
     @Override
     public void init() {
         initializeHardware(hardwareMap);
@@ -48,12 +54,15 @@ public class TeleOp extends PinkOpMode {
 
     @Override
     public void loop() {
-        if (gamepad1.dpad_left) {
-            setTurretAngle(currentAngle - 90);
-        }
-        if (gamepad1.dpad_right) {
-            setTurretAngle(currentAngle + 90);
+        if (gamepad1.dpad_left) setTurretAngle(currentAngle - 90);
+        if (gamepad1.dpad_right) setTurretAngle(currentAngle + 90);
 
-        }
+        if(gamepad1.a) claw.moveClaw(0.5);
+        if(gamepad1.b) claw.moveClaw(0);
+
+        if(gamepad2.b) lift.setLiftHeight(0);
+        if(gamepad2.a) lift.setLiftHeight(13.5);
+        if(gamepad2.x) lift.setLiftHeight(23.5);
+        if(gamepad2.y) lift.setLiftHeight(33.5);
     }
 }
