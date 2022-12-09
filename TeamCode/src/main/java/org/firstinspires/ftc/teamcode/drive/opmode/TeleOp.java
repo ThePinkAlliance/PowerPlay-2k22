@@ -17,7 +17,7 @@ public class TeleOp extends PinkOpMode {
 
     private Lift lift;
 
-    double targetPosition = 0;
+    double currentAngle = 0;
 
     public CommandResponse setTurretAngle(double targetAngle) {
         double _targetPosition = (targetAngle / degreesPerRotation) * TICKS_PER_ROT;
@@ -26,6 +26,7 @@ public class TeleOp extends PinkOpMode {
             this.hardware.turretMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             this.hardware.turretMotor.setTargetPosition((int) _targetPosition);
             this.hardware.turretMotor.setPower(0.5);
+            currentAngle = targetAngle;
             while (this.hardware.turretMotor.isBusy())
                 telemetry.addData("Turret", "Moving");
             this.hardware.turretMotor.setPower(0);
@@ -41,9 +42,17 @@ public class TeleOp extends PinkOpMode {
         initializeHardware(hardwareMap);
 
         lift = new Lift(hardware);
+
+
     }
 
     @Override
     public void loop() {
+        if (gamepad1.dpad_left) {
+            setTurretAngle(currentAngle - 90);
+        }
+        if (gamepad1.dpad_right) {
+            setTurretAngle(currentAngle + 90);
+        }
     }
 }
