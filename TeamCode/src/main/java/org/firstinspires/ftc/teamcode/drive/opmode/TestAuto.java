@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 import java.util.List;
 
-@Autonomous()
+@Autonomous(name = "Auto")
 public class TestAuto extends LinearOpMode {
     Pose2d startingPose = new Pose2d(-69, -11.7);
 

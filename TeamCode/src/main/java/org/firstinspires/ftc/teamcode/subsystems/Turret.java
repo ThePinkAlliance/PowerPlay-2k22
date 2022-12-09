@@ -16,32 +16,6 @@ public class Turret extends Subsystem {
 
     public Turret(Hardware hardware, Lift lift) {
         super(hardware);
-
-        this.lift = lift;
-
-        this.hardware.turretMotor.setPIDFCoefficients(DcMotor.RunMode.RUN_TO_POSITION, pidfCoefficients);
-    }
-
-    public CommandResponse setTurretAngle(double targetAngle) {
-        double targetPosition = (targetAngle / degreesPerRotation) * TICKS_PER_ROT;
-
-        if (lift.hasClearedMinimumRotateHeight()) {
-            this.hardware.turretMotor.setTargetPosition((int) targetPosition);
-
-            return new CommandResponse(this.hardware.turretMotor, CommandStatus.ACCEPTED);
-        }
-
-        return new CommandResponse(this.hardware.turretMotor, CommandStatus.ACCEPTED);
-    }
-
-    public CommandStatus setTurretPower(double power) {
-        if (lift.hasClearedMinimumRotateHeight()) {
-            this.hardware.turretMotor.setPower(power);
-
-            return CommandStatus.ACCEPTED;
-        }
-
-        return CommandStatus.REJECTED;
     }
 
     public double getPosition() {
