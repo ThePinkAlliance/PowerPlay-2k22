@@ -146,7 +146,7 @@ public class Lift extends Subsystem {
         //tell the control hub the number of ticks we need to move
         this.hardware.liftMotor.setTargetPosition((int) (this.hardware.liftMotor.getCurrentPosition()  + 0.25 * ticksPerElevatorRevolution));
         // tell control hub to start moving the motor. It will stop at the desired position on its own
-        this.hardware.liftMotor.setPower(0.4);
+        this.hardware.liftMotor.setPower(0.8);
         //make sure the rest of the program does not continue until lift is done moving
         while (this.hardware.liftMotor.isBusy()) {
             //telemetry.addData("Lift", "Moving");
