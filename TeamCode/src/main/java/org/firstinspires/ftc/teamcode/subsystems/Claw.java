@@ -13,7 +13,7 @@ public class Claw extends Subsystem {
         super(hardware);
 
         claw = hardware.claw;
-        extensionMotor = hardware.extensionMotor;
+        //extensionMotor = hardware.extensionMotor;
     }
 
     public void moveClaw(double position) {

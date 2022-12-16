@@ -29,7 +29,7 @@ public class Lift extends Subsystem {
 
         this.hardware.liftMotor.setTargetPositionTolerance(2);
 
-        this.hardware.extensionMotor.setTargetPositionTolerance(2);
+        //this.hardware.extensionMotor.setTargetPositionTolerance(2);
     }
 
     /**
@@ -43,9 +43,9 @@ public class Lift extends Subsystem {
 
         // limit the set target position speed to 40%
         this.hardware.liftMotor.setPower(0.4);
-        while (this.hardware.turretMotor.isBusy())
+/*        while (this.hardware.turretMotor.isBusy())
             telemetry.addData("Lift", "Moving");
-        this.hardware.turretMotor.setPower(0);
+        this.hardware.turretMotor.setPower(0); */
         this.currentElevatorHeight = height + clawHeightDifference;
     }
 
@@ -53,7 +53,7 @@ public class Lift extends Subsystem {
         this.hardware.liftMotor.setPower(0);
     }
 
-    public void setExtensionDistance(double distance) {
+/*    public void setExtensionDistance(double distance) {
         double rotations = distance / inchesPerElevatorRotation;
         int position = (int) Range.clip(rotations * TICKS_PER_REV, 0, maxElevatorHeightTicks);
         while (this.hardware.extensionMotor.isBusy())
@@ -72,7 +72,7 @@ public class Lift extends Subsystem {
 
     public void stopExtensionMotor() {
         this.hardware.extensionMotor.setPower(0);
-    }
+    } */
 
     /**
      * Returns the current claw height from the ground in inches.

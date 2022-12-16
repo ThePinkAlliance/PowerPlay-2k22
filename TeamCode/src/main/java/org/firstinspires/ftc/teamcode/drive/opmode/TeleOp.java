@@ -55,7 +55,8 @@ public class TeleOp extends PinkOpMode {
     public void init() {
         initializeHardware(hardwareMap);
         drive = new SampleMecanumDrive(hardwareMap);
-        //lift = new Lift(hardware);
+        lift = new Lift(hardware);
+        claw = new Claw(hardware);
 
 
     }
@@ -65,13 +66,13 @@ public class TeleOp extends PinkOpMode {
         //if (gamepad1.dpad_left) setTurretAngle(currentAngle - 90);
         //if (gamepad1.dpad_right) setTurretAngle(currentAngle + 90);
 
-        //if(gamepad1.a) claw.moveClaw(0.5);
-        //if(gamepad1.b) claw.moveClaw(0);
+        if(gamepad1.a) claw.moveClaw(0.5);
+        if(gamepad1.b) claw.moveClaw(0);
 
-        //if(gamepad2.b) lift.setLiftHeight(0);
-        //if(gamepad2.a) lift.setLiftHeight(13.5);
-        //if(gamepad2.x) lift.setLiftHeight(23.5);
-        //if(gamepad2.y) lift.setLiftHeight(33.5);
+        if(gamepad2.b) lift.setLiftHeight(0);
+        if(gamepad2.a) lift.setLiftHeight(13.5);
+        if(gamepad2.x) lift.setLiftHeight(23.5);
+        if(gamepad2.y) lift.setLiftHeight(33.5);
         drive.setWeightedDrivePower(
                 new Pose2d(
                         -gamepad1.left_stick_y * DriveConstants.FORWARD_MULTIPLIER,

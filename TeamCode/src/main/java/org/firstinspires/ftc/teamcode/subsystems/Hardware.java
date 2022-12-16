@@ -29,7 +29,7 @@ public class Hardware {
     public DcMotorEx testMotor;
 
     // Lift
-    public DcMotorEx extensionMotor;
+    //public DcMotorEx extensionMotor;
     public DcMotorEx liftMotor;
     public Servo claw;
 
@@ -43,7 +43,7 @@ public class Hardware {
         backLeft = map.get(DcMotorEx.class, "back-left");
 
 //        turretMotor = map.get(DcMotorEx.class, "turret-motor");
-//        liftMotor = map.get(DcMotorEx.class, "lift-motor");
+        liftMotor = map.get(DcMotorEx.class, "lift-motor");
 
 //        testMotor = map.get(DcMotorEx.class, "test-motor");
 //
@@ -52,7 +52,7 @@ public class Hardware {
 //        centerEncoder = new Encoder(map.get(DcMotorEx.class, "center-encoder"));
 
         webcamFront = map.get(WebcamName.class, "Webcam 1");
-//        claw = map.get(Servo.class, "claw");
+        claw = map.get(Servo.class, "claw");
 //        barMover = map.get(DcMotor.class, "barMover");
     }
 }
