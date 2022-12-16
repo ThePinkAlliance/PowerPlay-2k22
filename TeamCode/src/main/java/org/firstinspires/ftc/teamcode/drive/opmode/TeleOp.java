@@ -81,6 +81,11 @@ public class TeleOp extends PinkOpMode {
                         -gamepad1.right_stick_x * DriveConstants.ROTATE_MULTIPLIER
                 )
         );
-        if(gamepad2.left_bumper) lift.liftUpByRotation(999, gamepad2);
+        //if(gamepad2.left_bumper) lift.liftUpByRotation(999, gamepad2);
+
+        //lift manual controls
+        if(gamepad2.dpad_up) lift.liftUp(gamepad2);
+        if(gamepad2.dpad_down) lift.liftDown(gamepad2);
+
     }
 }
