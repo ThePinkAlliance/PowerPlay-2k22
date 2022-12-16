@@ -28,7 +28,7 @@ public class TeleOp extends PinkOpMode {
 
     double currentAngle = 0;
 
-    public CommandResponse setTurretAngle(double targetAngle) {
+    /* public CommandResponse setTurretAngle(double targetAngle) {
         double _targetPosition = (targetAngle / degreesPerRotation) * TICKS_PER_ROT;
 
         if (lift.hasClearedMinimumRotateHeight()) {
@@ -45,7 +45,7 @@ public class TeleOp extends PinkOpMode {
         }
 
         return new CommandResponse(this.hardware.turretMotor, CommandStatus.ACCEPTED);
-    }
+    } */
 
 
 
@@ -69,10 +69,11 @@ public class TeleOp extends PinkOpMode {
         if(gamepad1.a) claw.moveClaw(0.5);
         if(gamepad1.b) claw.moveClaw(0);
 
-        if(gamepad2.b) lift.setLiftHeight(0);
-        if(gamepad2.a) lift.setLiftHeight(13.5);
-        if(gamepad2.x) lift.setLiftHeight(23.5);
-        if(gamepad2.y) lift.setLiftHeight(33.5);
+        //stop button for lift is right_bumper as defined in Lift class
+        if(gamepad2.b) lift.setLiftHeight(0, gamepad2);
+        if(gamepad2.a) lift.setLiftHeight(13.5, gamepad2);
+        if(gamepad2.x) lift.setLiftHeight(23.5, gamepad2);
+        if(gamepad2.y) lift.setLiftHeight(34, gamepad2);
         drive.setWeightedDrivePower(
                 new Pose2d(
                         -gamepad1.left_stick_y * DriveConstants.FORWARD_MULTIPLIER,
@@ -80,5 +81,6 @@ public class TeleOp extends PinkOpMode {
                         -gamepad1.right_stick_x * DriveConstants.ROTATE_MULTIPLIER
                 )
         );
+        if(gamepad2.left_bumper) lift.liftUpByRotation(999, gamepad2);
     }
 }
