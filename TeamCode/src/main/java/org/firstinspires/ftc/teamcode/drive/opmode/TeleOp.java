@@ -76,9 +76,9 @@ public class TeleOp extends PinkOpMode {
         if(gamepad2.y) lift.setLiftHeight(34, gamepad2);
         drive.setWeightedDrivePower(
                 new Pose2d(
-                        -gamepad1.left_stick_y * DriveConstants.FORWARD_MULTIPLIER,
-                        -gamepad1.left_stick_x * DriveConstants.STRAFE_MULTIPLIER,
-                        -gamepad1.right_stick_x * DriveConstants.ROTATE_MULTIPLIER
+                        -gamepad1.right_stick_y * DriveConstants.FORWARD_MULTIPLIER,
+                        -gamepad1.right_stick_x * DriveConstants.STRAFE_MULTIPLIER,
+                        -gamepad1.left_stick_x * DriveConstants.ROTATE_MULTIPLIER
                 )
         );
         //if(gamepad2.left_bumper) lift.liftUpByRotation(999, gamepad2);
