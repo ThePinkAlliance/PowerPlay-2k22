@@ -83,4 +83,12 @@ public class DriveConstants {
         // see https://docs.google.com/document/d/1tyWrXDfMidwYyP_5H4mZyVgaEswhOC35gvdmP-V-5hA/edit#heading=h.61g9ixenznbx
         return 32767 / ticksPerSecond;
     }
+    /*
+     * These values are used in TeleOp and should be adjusted here to the drivers' preference.
+     * These are multipliers, so commanded power times these percentages equals output power.
+     */
+    public static double FORWARD_MULTIPLIER = 0.80;
+    public static double STRAFE_MULTIPLIER = 0.80;
+    public static double ROTATE_MULTIPLIER = 0.90;
+
 }
