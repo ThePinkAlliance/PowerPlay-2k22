@@ -63,6 +63,8 @@ public class TeleOp extends PinkOpMode {
 
     @Override
     public void loop() {
+        //stop lift when not in use or cancel button pressed
+        lift.stopLiftWhenIdle(gamepad2.right_bumper);
         //if (gamepad1.dpad_left) setTurretAngle(currentAngle - 90);
         //if (gamepad1.dpad_right) setTurretAngle(currentAngle + 90);
 

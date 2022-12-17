@@ -47,21 +47,8 @@ public class Lift extends Subsystem {
         double currentHeightDifferenceTicks = rotations * ticksPerElevatorRevolution - this.hardware.liftMotor.getCurrentPosition();
         // tell control hub to start moving the motor. It will stop at the desired position on its own
         this.hardware.liftMotor.setPower(0.4 * currentHeightDifferenceTicks/Math.abs(currentHeightDifferenceTicks));
-        //make sure the rest of the program does not continue until lift is done moving
-        while (this.hardware.liftMotor.isBusy()) {
-            //telemetry.addData("Lift", "Moving");
-            //stop moving the motor if this button is pressed
-            if(gamepad.right_bumper) {
-                break;
-            }
-        }
-        //this stops the motor when while loop exist, either because motor is done moving or stop command was recieved
-        this.hardware.liftMotor.setPower(0);
+        //motor will be stopped by stopLiftWhenIdle()
         //this.currentElevatorHeight = height + clawHeightDifference;
-    }
-
-    public void stopLift() {
-        this.hardware.liftMotor.setPower(0);
     }
 
 /*    public void setExtensionDistance(double distance) {
@@ -120,26 +107,6 @@ public class Lift extends Subsystem {
         return currentElevatorHeightTicks;
     } */
 
-    //to test the distance one motor rotation will raise the lift, this will move the lift up one rotation
-    public void liftUpByRotation(double rotations, Gamepad gamepad) {
-        //tell the control hub the number of ticks we need to move
-        this.hardware.liftMotor.setTargetPosition((int) (rotations * ticksPerElevatorRevolution));
-        // tell control hub to start moving the motor. It will stop at the desired position on its own
-        this.hardware.liftMotor.setPower(0.4);
-        //make sure the rest of the program does not continue until lift is done moving
-        while (this.hardware.liftMotor.isBusy()) {
-            //telemetry.addData("Lift", "Moving");
-            //record the current position as motor is moving
-            this.currentElevatorHeightTicks = this.hardware.liftMotor.getCurrentPosition();
-            //stop moving the motor if this button is pressed
-            if(gamepad.right_bumper) {
-                break;
-            }
-        }
-        //this stops the motor when while loop exist, either because motor is done moving or stop command was issued
-        this.hardware.liftMotor.setPower(0);
-    }
-
     //manual controls
 
     public void liftUp(Gamepad gamepad) {
@@ -147,18 +114,7 @@ public class Lift extends Subsystem {
         this.hardware.liftMotor.setTargetPosition((int) (this.hardware.liftMotor.getCurrentPosition()  + 0.25 * ticksPerElevatorRevolution));
         // tell control hub to start moving the motor. It will stop at the desired position on its own
         this.hardware.liftMotor.setPower(1);
-        //make sure the rest of the program does not continue until lift is done moving
-        while (this.hardware.liftMotor.isBusy()) {
-            //telemetry.addData("Lift", "Moving");
-            //record the current position as motor is moving
-            this.currentElevatorHeightTicks = this.hardware.liftMotor.getCurrentPosition();
-            //stop moving the motor if this button is pressed
-            if(gamepad.right_bumper) {
-                break;
-            }
-        }
-        //this stops the motor when while loop exist, either because motor is done moving or stop command was issued
-        this.hardware.liftMotor.setPower(0);
+        //motor will be stopped by stopLiftWhenIdle()
     }
 
     public void liftDown(Gamepad gamepad) {
@@ -166,18 +122,17 @@ public class Lift extends Subsystem {
         this.hardware.liftMotor.setTargetPosition((int) (this.hardware.liftMotor.getCurrentPosition() - 0.25 * ticksPerElevatorRevolution));
         // tell control hub to start moving the motor. It will stop at the desired position on its own
         this.hardware.liftMotor.setPower(-0.4);
-        //make sure the rest of the program does not continue until lift is done moving
-        while (this.hardware.liftMotor.isBusy()) {
-            //telemetry.addData("Lift", "Moving");
-            //record the current position as motor is moving
-            this.currentElevatorHeightTicks = this.hardware.liftMotor.getCurrentPosition();
-            //stop moving the motor if this button is pressed
-            if(gamepad.right_bumper) {
-                break;
-            }
-        }
-        //this stops the motor when while loop exist, either because motor is done moving or stop command was issued
-        this.hardware.liftMotor.setPower(0);
+        //motor will be stopped by stopLiftWhenIdle()
     }
+
+    public void stopLiftWhenIdle(boolean gamepad) {
+        //when the motor is not trying to move into position or if cancel button pressed,
+        if (!this.hardware.liftMotor.isBusy() || gamepad) {
+            //set motor speed to 0 and set the target position to current position to stop lift motion
+            this.hardware.liftMotor.setTargetPosition(this.hardware.liftMotor.getCurrentPosition());
+            this.hardware.liftMotor.setPower(0);
+        }
+    }
+
 
 }
