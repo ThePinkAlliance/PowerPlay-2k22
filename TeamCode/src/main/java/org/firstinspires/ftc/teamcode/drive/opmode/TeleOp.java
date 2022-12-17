@@ -72,10 +72,10 @@ public class TeleOp extends PinkOpMode {
         if(gamepad1.b) claw.moveClaw(0);
 
         //stop button for lift is right_bumper as defined in Lift class
-        if(gamepad2.b) lift.setLiftHeight(0, gamepad2);
-        if(gamepad2.a) lift.setLiftHeight(13.5, gamepad2);
-        if(gamepad2.x) lift.setLiftHeight(23.5, gamepad2);
-        if(gamepad2.y) lift.setLiftHeight(34, gamepad2);
+        if(gamepad2.b) lift.setLiftHeight(0);
+        if(gamepad2.a) lift.setLiftHeight(13.5);
+        if(gamepad2.x) lift.setLiftHeight(23.5);
+        //if(gamepad2.y) lift.setLiftHeight(34);
         drive.setWeightedDrivePower(
                 new Pose2d(
                         -gamepad1.right_stick_y * DriveConstants.FORWARD_MULTIPLIER,
@@ -86,8 +86,9 @@ public class TeleOp extends PinkOpMode {
         //if(gamepad2.left_bumper) lift.liftUpByRotation(999, gamepad2);
 
         //lift manual controls
-        if(gamepad2.dpad_up) lift.liftUp(gamepad2);
-        if(gamepad2.dpad_down) lift.liftDown(gamepad2);
+        if(gamepad2.dpad_up) lift.liftUp();
+        if(gamepad2.dpad_down) lift.liftDown();
+        lift.DOGE();
 
     }
 }

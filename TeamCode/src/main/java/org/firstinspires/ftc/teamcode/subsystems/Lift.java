@@ -12,7 +12,7 @@ import org.firstinspires.ftc.teamcode.lib.Subsystem;
 public class Lift extends Subsystem {
     // Unit Inches
     private double currentElevatorHeightTicks = 0; // updated in code to keep track of height
-    private double ticksPerElevatorRevolution = 1425.1; // static, defined by motor encoder specifications
+    private double ticksPerElevatorRevolution = 751.8 ; // static, defined by motor encoder specifications
 
     //private final double extensionMaxTicks = 100;
     //private final double extensionMaxInches = 100;
@@ -21,7 +21,7 @@ public class Lift extends Subsystem {
 
     private final double clawHeightDifference = 0; // adjustment to set the minimum height of the elevator if needed
     private final double maxElevatorHeightInches = 33; // measured by hand
-     private final double inchesPerElevatorRotation = 4.6875; // measured by hand
+     private final double inchesPerElevatorRotation = 11; // measured by hand
     //private final double safeRotationHeightInches = 8;
     private final double maxElevatorHeightTicks = maxElevatorHeightInches * ( ticksPerElevatorRevolution / inchesPerElevatorRotation );
 
@@ -36,15 +36,15 @@ public class Lift extends Subsystem {
     /**
      * Commands the lift to move to a specific height with the height of the claw in mind.
      */
-    public void setLiftHeight(double height, Gamepad gamepad) { //input = height in inches
+    public void setLiftHeight(double height) { //input = height in inches
         //convert desired location in linear inches from bottom to the # of rotations required
         double rotations = (height + clawHeightDifference) / inchesPerElevatorRotation;
         //convert the required rotations to encoder ticks, and set a max safe distance
-        double position = Range.clip(rotations * ticksPerElevatorRevolution, 0, maxElevatorHeightTicks);
+        double position = -Range.clip(rotations * ticksPerElevatorRevolution, 0, maxElevatorHeightTicks);
         //tell the control hub the number of ticks we need to move
         this.hardware.liftMotor.setTargetPosition((int) position);
         //calculate height difference
-        double currentHeightDifferenceTicks = rotations * ticksPerElevatorRevolution - this.hardware.liftMotor.getCurrentPosition();
+        double currentHeightDifferenceTicks = position - this.hardware.liftMotor.getCurrentPosition();
         // tell control hub to start moving the motor. It will stop at the desired position on its own
         this.hardware.liftMotor.setPower(0.4 * currentHeightDifferenceTicks/Math.abs(currentHeightDifferenceTicks));
         //motor will be stopped by stopLiftWhenIdle()
@@ -109,19 +109,24 @@ public class Lift extends Subsystem {
 
     //manual controls
 
-    public void liftUp(Gamepad gamepad) {
+    public void upOneRotation() {
+        this.hardware.liftMotor.setTargetPosition((int) ticksPerElevatorRevolution);
+        this.hardware.liftMotor.setPower(-0.3);
+    }
+
+    public void liftUp() {
         //tell the control hub the number of ticks we need to move
-        this.hardware.liftMotor.setTargetPosition((int) (this.hardware.liftMotor.getCurrentPosition()  + 0.25 * ticksPerElevatorRevolution));
+        this.hardware.liftMotor.setTargetPosition((int) (this.hardware.liftMotor.getCurrentPosition()  - 0.25 * ticksPerElevatorRevolution));
         // tell control hub to start moving the motor. It will stop at the desired position on its own
-        this.hardware.liftMotor.setPower(1);
+        this.hardware.liftMotor.setPower(-0.3);
         //motor will be stopped by stopLiftWhenIdle()
     }
 
-    public void liftDown(Gamepad gamepad) {
+    public void liftDown() {
         //tell the control hub the number of ticks we need to move
-        this.hardware.liftMotor.setTargetPosition((int) (this.hardware.liftMotor.getCurrentPosition() - 0.25 * ticksPerElevatorRevolution));
+        this.hardware.liftMotor.setTargetPosition((int) (this.hardware.liftMotor.getCurrentPosition() + 0.25 * ticksPerElevatorRevolution));
         // tell control hub to start moving the motor. It will stop at the desired position on its own
-        this.hardware.liftMotor.setPower(-0.4);
+        this.hardware.liftMotor.setPower(0.05);
         //motor will be stopped by stopLiftWhenIdle()
     }
 
@@ -129,10 +134,14 @@ public class Lift extends Subsystem {
         //when the motor is not trying to move into position or if cancel button pressed,
         if (!this.hardware.liftMotor.isBusy() || gamepad) {
             //set motor speed to 0 and set the target position to current position to stop lift motion
-            this.hardware.liftMotor.setTargetPosition(this.hardware.liftMotor.getCurrentPosition());
+            //this.hardware.liftMotor.setTargetPosition(this.hardware.liftMotor.getCurrentPosition());
             this.hardware.liftMotor.setPower(0);
+            this.hardware.liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         }
     }
 
+    public void DOGE() {
+        System.out.println(this.hardware.liftMotor.getCurrentPosition());
+    }
 
 }
