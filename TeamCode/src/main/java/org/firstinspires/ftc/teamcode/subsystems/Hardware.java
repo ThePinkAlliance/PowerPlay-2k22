@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.subsystems;
 
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.Servo;
 
@@ -21,15 +22,7 @@ public class Hardware {
     // Turret
     public DcMotorEx turretMotor;
 
-    // Odometry
-//    public Encoder leftEncoder;
-//    public Encoder rightEncoder;
-//    public Encoder centerEncoder;
-
-    public DcMotorEx testMotor;
-
     // Lift
-    //public DcMotorEx extensionMotor;
     public DcMotorEx liftMotor;
     public Servo claw;
 
@@ -42,17 +35,11 @@ public class Hardware {
         backRight = map.get(DcMotorEx.class, "back-right");
         backLeft = map.get(DcMotorEx.class, "back-left");
 
-//        turretMotor = map.get(DcMotorEx.class, "turret-motor");
         liftMotor = map.get(DcMotorEx.class, "lift-motor");
-
-//        testMotor = map.get(DcMotorEx.class, "test-motor");
-//
-//        leftEncoder = new Encoder(map.get(DcMotorEx.class, "left-encoder"));
-//        rightEncoder = new Encoder(map.get(DcMotorEx.class, "right-encoder"));
-//        centerEncoder = new Encoder(map.get(DcMotorEx.class, "center-encoder"));
+        liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        liftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
 
         webcamFront = map.get(WebcamName.class, "Webcam 1");
         claw = map.get(Servo.class, "claw");
-//        barMover = map.get(DcMotor.class, "barMover");
     }
 }

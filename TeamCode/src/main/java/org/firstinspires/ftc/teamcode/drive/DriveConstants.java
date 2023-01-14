@@ -87,8 +87,8 @@ public class DriveConstants {
      * These values are used in TeleOp and should be adjusted here to the drivers' preference.
      * These are multipliers, so commanded power times these percentages equals output power.
      */
-    public static double FORWARD_MULTIPLIER = 0.80;
-    public static double STRAFE_MULTIPLIER = 0.80;
-    public static double ROTATE_MULTIPLIER = 0.90;
+    public static double FORWARD_MULTIPLIER = 0.58;
+    public static double STRAFE_MULTIPLIER = 0.58;
+    public static double ROTATE_MULTIPLIER = 0.33;
 
 }

@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 import java.util.List;
 
-@Autonomous(name = "Auto Left")
+@Autonomous(name = "Auto Side Left")
 public class AutoLeft extends LinearOpMode {
     Pose2d startingPose = new Pose2d(-69, -11.7);
 

@@ -14,7 +14,7 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 import java.util.List;
 
-@Autonomous(name = "Auto Right")
+@Autonomous(name = "Auto Side Right")
 public class AutoRight extends LinearOpMode {
     Pose2d startingPose = new Pose2d(-69, -11.7);
 
@@ -150,6 +150,5 @@ public class AutoRight extends LinearOpMode {
         // Use loadModelFromAsset() if the TF Model is built in as an asset by Android Studio
         // Use loadModelFromFile() if you have downloaded a custom team model to the Robot Controller's FLASH.
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABELS);
-//         tfod.loadModelFromFile(TFOD_MODEL_FILE, LABELS);
     }
 }
