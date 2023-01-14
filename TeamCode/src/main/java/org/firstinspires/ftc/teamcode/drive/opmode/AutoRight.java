@@ -14,8 +14,9 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 import java.util.List;
 
-@Autonomous(name = "Auto Side Right")
+@Autonomous(name = "Auto")
 public class AutoRight extends LinearOpMode {
+//    Pose2d startingPose = new Pose2d(-69, -11.7);
     Pose2d startingPose = new Pose2d(-69, -11.7);
 
     TrajectorySequence selectedSequence;
@@ -45,7 +46,7 @@ public class AutoRight extends LinearOpMode {
      */
     private TFObjectDetector tfod;
 
-    private double frwd = 34.5;
+    private double frwd = 27;
 
 
     @Override
@@ -54,8 +55,8 @@ public class AutoRight extends LinearOpMode {
 
         drive.setPoseEstimate(startingPose);
 
-        TrajectorySequence left = drive.trajectorySequenceBuilder(startingPose).forward(frwd).strafeLeft(24).build();
-        TrajectorySequence right = drive.trajectorySequenceBuilder(startingPose).forward(frwd).strafeRight(24).build();
+        TrajectorySequence left = drive.trajectorySequenceBuilder(startingPose).forward(frwd).strafeLeft(32).build();
+        TrajectorySequence right = drive.trajectorySequenceBuilder(startingPose).forward(frwd).strafeRight(28).build();
         TrajectorySequence center = drive.trajectorySequenceBuilder(startingPose).forward(frwd).build();
 
         initVuforia();
@@ -96,10 +97,10 @@ public class AutoRight extends LinearOpMode {
 
                     switch (recognitionName) {
                         case bolt_label:
-                            selectedSequence = center;
+                            selectedSequence = left;
                             break;
                         case bulb_label:
-                            selectedSequence = left;
+                            selectedSequence = center;
                             break;
 
                         case panel_label:

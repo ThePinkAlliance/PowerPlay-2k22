@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.drive.opmode;
 
 import com.acmerobotics.roadrunner.geometry.Pose2d;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
@@ -14,9 +15,12 @@ import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 
 import java.util.List;
 
+@Disabled
 @Autonomous(name = "Auto Side Left")
 public class AutoLeft extends LinearOpMode {
     Pose2d startingPose = new Pose2d(-69, -11.7);
+
+    double forwardTravelDistance = 32;
 
     TrajectorySequence selectedSequence;
 
@@ -53,9 +57,9 @@ public class AutoLeft extends LinearOpMode {
 
         drive.setPoseEstimate(startingPose);
 
-        TrajectorySequence left = drive.trajectorySequenceBuilder(startingPose).forward(34).strafeLeft(24.5).build();
-        TrajectorySequence right = drive.trajectorySequenceBuilder(startingPose).forward(34).strafeRight(24.5).build();
-        TrajectorySequence center = drive.trajectorySequenceBuilder(startingPose).forward(34).build();
+        TrajectorySequence left = drive.trajectorySequenceBuilder(startingPose).forward(forwardTravelDistance).strafeLeft(24.5).build();
+        TrajectorySequence right = drive.trajectorySequenceBuilder(startingPose).forward(forwardTravelDistance).strafeRight(24.5).build();
+        TrajectorySequence center = drive.trajectorySequenceBuilder(startingPose).forward(forwardTravelDistance).build();
 
         initVuforia();
         initTfod();

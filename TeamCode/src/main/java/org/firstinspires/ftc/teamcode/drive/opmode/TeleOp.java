@@ -45,6 +45,8 @@ public class TeleOp extends PinkOpMode {
 
     private double targetPosition = 0;
 
+    private double currentHeight = 0;
+
     double currentAngle = 0;
 
     @Override
@@ -55,7 +57,7 @@ public class TeleOp extends PinkOpMode {
         lift = new Lift(hardware, telemetry);
         claw = new Claw(hardware);
 
-        controller.setOutputBounds(-1, 1);
+        controller.setOutputBounds(-0.7, 0.7);
     }
 
     @Override
@@ -65,9 +67,9 @@ public class TeleOp extends PinkOpMode {
 
         // stop button for lift is right_bumper as defined in Lift class
         if(gamepad2.b) controller.setTargetPosition(1);
-        if(gamepad2.a) setHeight(13.5, gamepad2);
-        if(gamepad2.x) setHeight(23.5, gamepad2);
-        if(gamepad2.y) setHeight(34, gamepad2);
+        if(gamepad2.a) setHeight(18.5, gamepad2);
+        if(gamepad2.x) setHeight(24.5, gamepad2);
+        if(gamepad2.y) setHeight(33, gamepad2);
 
         drive.setWeightedDrivePower(
                 new Pose2d(
@@ -87,11 +89,28 @@ public class TeleOp extends PinkOpMode {
         telemetry.addData("Lift Position", this.lift.getLiftPosition());
 
         // lift manual controls
-        if(gamepad2.dpad_up) lift.liftUp(gamepad2);
-        if(gamepad2.dpad_down) lift.liftDown(gamepad2);
+        if(gamepad2.dpad_up) {
+            double nextHeight = currentHeight + .2;
+
+            nextHeight = Range.clip(nextHeight, 0, 34);
+
+            setHeight(nextHeight, gamepad2);
+        }
+        if(gamepad2.dpad_down) {
+            double nextHeight = currentHeight - .15;
+
+            nextHeight = Range.clip(nextHeight, 0, 34);
+
+            setHeight(nextHeight, gamepad2);
+        }
 
         double output = controller.update(this.hardware.liftMotor.getCurrentPosition());
-        this.hardware.liftMotor.setPower(output);
+
+        if (Math.abs(output) > .1) {
+            this.hardware.liftMotor.setPower(output);
+        } else {
+            this.hardware.liftMotor.setPower(0);
+        }
 
         telemetry.addData("Lift Difference", controller.getTargetPosition() / this.hardware.liftMotor.getCurrentPosition());
         telemetry.addData("Lift Output", output);
@@ -111,5 +130,7 @@ public class TeleOp extends PinkOpMode {
         double targetPosition = Range.clip(rotations * ticksPerElevatorRevolution, 0, maxElevatorHeightTicks);
 
         controller.setTargetPosition(targetPosition);
+
+        this.currentHeight = height;
     }
 }

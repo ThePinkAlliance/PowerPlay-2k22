@@ -38,6 +38,7 @@ public class Hardware {
         liftMotor = map.get(DcMotorEx.class, "lift-motor");
         liftMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         liftMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+        liftMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         webcamFront = map.get(WebcamName.class, "Webcam 1");
         claw = map.get(Servo.class, "claw");
